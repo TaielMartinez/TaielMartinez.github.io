@@ -21,7 +21,8 @@
         <h2>NIVEL 2 – GUESS THE SNEAKERS</h2>
 
         <div class="contenedor-logo">
-            <img id="sneakerActual" src="" alt="Sneaker a adivinar">
+            <img id="sneakerActual" class="img-deformada" src="" alt="Sneaker a adivinar">
+            <img id="sneakerRespuesta" class="img-respuesta" src="" alt="Sneaker respuesta" style="display: none;">
         </div>
 
         <div id="opciones2" class="opciones"></div>
@@ -71,11 +72,11 @@
     <script>
         // Datos del Nivel 2
         const sneakers = [
-            { imagen: "assets/2/snk1.png", correcta: "Out Of Office", opciones: ["LV Skate", "Jordan 4", "Air Force 1", "Out Of Office"] },
-            { imagen: "assets/2/snk2.png", correcta: "Jordan 4", opciones: ["Jordan 11", "Bape Sk8 Sta", "Jordan 4", "Yeezy Slide"] },
-            { imagen: "assets/2/snk3.png", correcta: "Forum Bad Bunny", opciones: ["Forum Bad Bunny", "Campus Bad Bunny", "Gazelle Bad Bunny", "Response Bad Bunny"] },
-            { imagen: "assets/2/snk4.png", correcta: "Yeezy Foam Runner", opciones: ["Yeezy Slide", "Yeezy 350", "Yeezy Foam Runner", "Yeezy 700"] },
-            { imagen: "assets/2/snk5.png", correcta: "Shox TL", opciones: ["Air Max Tn", "Shox TL", "Uptempo", "Vapormax"] }
+            { imagen: "assets/2/snk1.png", imagenRespuesta: "assets/2/snk1_respuesta.png", correcta: "Out Of Office", opciones: ["LV Skate", "Jordan 4", "Air Force 1", "Out Of Office"] },
+            { imagen: "assets/2/snk2.png", imagenRespuesta: "assets/2/snk2_respuesta.png", correcta: "Jordan 4", opciones: ["Jordan 11", "Bape Sk8 Sta", "Jordan 4", "Yeezy Slide"] },
+            { imagen: "assets/2/snk3.png", imagenRespuesta: "assets/2/snk3_respuesta.png", correcta: "Forum Bad Bunny", opciones: ["Forum Bad Bunny", "Campus Bad Bunny", "Gazelle Bad Bunny", "Response Bad Bunny"] },
+            { imagen: "assets/2/snk4.png", imagenRespuesta: "assets/2/snk4_respuesta.png", correcta: "Yeezy Foam Runner", opciones: ["Yeezy Slide", "Yeezy 350", "Yeezy Foam Runner", "Yeezy 700"] },
+            { imagen: "assets/2/snk5.png", imagenRespuesta: "assets/2/snk5_respuesta.png", correcta: "Shox TL", opciones: ["Air Max Tn", "Shox TL", "Uptempo", "Vapormax"] }
         ];
 
         // Instancia del motor de juego para Nivel 2
@@ -85,6 +86,7 @@
             gameEngine = new GameEngine({
                 items: sneakers,
                 imageElementId: "sneakerActual",
+                imageRespuestaId: "sneakerRespuesta",
                 optionsContainerId: "opciones2",
                 livesElementIds: ["vida1", "vida2"],
                 popupId: "popupNivel2",

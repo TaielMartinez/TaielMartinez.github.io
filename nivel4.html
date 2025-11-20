@@ -21,7 +21,8 @@
         <h2>NIVEL 4</h2>
 
         <div class="contenedor-logo">
-            <img id="imagenActual" src="" alt="Imagen a adivinar">
+            <img id="imagenActual" class="img-deformada" src="" alt="Imagen a adivinar">
+            <img id="imagenRespuesta" class="img-respuesta" src="" alt="Imagen respuesta" style="display: none;">
         </div>
 
         <div id="opciones4" class="opciones"></div>
@@ -76,8 +77,8 @@
         // Datos del Nivel 4 - REEMPLAZA CON TUS DATOS
         const itemsNivel4 = [
             // Ejemplo:
-            // {imagen: "assets/ejemplo1.png", correcta: "Respuesta Correcta", opciones: ["Opción 1", "Opción 2", "Respuesta Correcta", "Opción 4"]},
-            // {imagen: "assets/ejemplo2.png", correcta: "Otra Respuesta", opciones: ["Opción A", "Otra Respuesta", "Opción B", "Opción C"]},
+            // {imagen: "assets/4/ejemplo1.png", imagenRespuesta: "assets/4/ejemplo1_respuesta.png", correcta: "Respuesta Correcta", opciones: ["Opción 1", "Opción 2", "Respuesta Correcta", "Opción 4"]},
+            // {imagen: "assets/4/ejemplo2.png", imagenRespuesta: "assets/4/ejemplo2_respuesta.png", correcta: "Otra Respuesta", opciones: ["Opción A", "Otra Respuesta", "Opción B", "Opción C"]},
         ];
 
         // Instancia del motor de juego para Nivel 4
@@ -87,6 +88,7 @@
             gameEngine = new GameEngine({
                 items: itemsNivel4,
                 imageElementId: "imagenActual",
+                imageRespuestaId: "imagenRespuesta",
                 optionsContainerId: "opciones4",
                 livesElementIds: ["vida1", "vida2"],
                 popupId: "popupNivel4",
