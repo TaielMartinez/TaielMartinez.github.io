@@ -1,22 +1,66 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Juego de Niveles - Evento Interactivo</title>
-    <meta name="description" content="Juego interactivo de 4 niveles para eventos en tablet" />
-    <meta name="author" content="TaielMG" />
+    <title>Fakmind Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
 
-    <meta property="og:title" content="Juego de Niveles - Evento Interactivo" />
-    <meta property="og:description" content="Juego interactivo de 4 niveles para eventos en tablet" />
-    <meta property="og:type" content="website" />
+<body>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <script type="module" crossorigin src="/assets/index-DUuubRBM.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BXAQYJHF.css">
-  </head>
+    <!-- MENÚ -->
+    <div id="menu">
+        <img src="assets/logo.png" class="logo">
 
-  <body>
-    <div id="root"></div>
-  </body>
+        <div class="levels">
+
+            <!-- NIVEL 1 -->
+            <div class="level">
+                <div class="level-cover"><img src="assets/portada1.png"></div>
+                <div class="level-button" onclick="window.location.href='nivel1.html'">
+                    NIVEL 1
+                    <small>(GUESS THE BRAND)</small>
+                </div>
+            </div>
+
+            <!-- NIVEL 2 -->
+            <div class="level">
+                <div class="level-cover"><img src="assets/portada2.png"></div>
+                <div class="level-button" onclick="window.location.href='nivel2.html'">
+                    NIVEL 2
+                    <small>(GUESS THE SNEAKERS)</small>
+                </div>
+            </div>
+
+            <!-- NIVEL 3 -->
+            <div class="level">
+                <div class="level-cover"><img src="assets/portada3.png"></div>
+                <div class="level-button" onclick="window.location.href='nivel3.html'">
+                    NIVEL 3
+                    <small>(PRÓXIMAMENTE)</small>
+                </div>
+            </div>
+
+            <!-- NIVEL 4 -->
+            <div class="level">
+                <div class="level-cover"><img src="assets/portada4.png"></div>
+                <div class="level-button" onclick="window.location.href='nivel4.html'">
+                    NIVEL 4
+                    <small>(PRÓXIMAMENTE)</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- LOGOS ABAJO -->
+    <div class="bottom-logos">
+        <img src="assets/mata.png" class="logo-mata">
+        <img src="assets/yourfriends.png" class="logo-yourfriends">
+    </div>
+
+</body>
+
 </html>

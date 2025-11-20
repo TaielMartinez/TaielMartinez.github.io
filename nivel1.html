@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nivel 1 – Guess The Brand</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<div id="nivel1" class="nivel">
+
+    <!-- VIDAS -->
+    <div class="vidas-wrapper">
+        <img id="vida1" class="vida" src="assets/icons/corazon_rojo.png">
+        <img id="vida2" class="vida" src="assets/icons/corazon_rojo.png">
+    </div>
+
+    <h2>NIVEL 1 – GUESS THE BRAND</h2>
+
+    <div class="contenedor-logo">
+        <img id="logoActual" class="img-deformada" src="" alt="Logo a adivinar">
+        <img id="logoRespuesta" class="img-respuesta" src="" alt="Logo respuesta" style="display: none;">
+    </div>
+
+    <div id="opciones" class="opciones"></div>
+
+    <button class="volver" onclick="volverMenu()">Volver al menú</button>
+
+    <img src="assets/logo.png" class="logo-fakmind">
+
+</div>
+
+<!-- POPUP FINAL -->
+<div id="popupNivel1" class="popup-overlay">
+    <div class="popup">
+        <h3>¡Completaste el Nivel 1!</h3>
+        <img src="assets/flecha.png" class="popup-btn" onclick="irANivel2()" />
+    </div>
+</div>
+
+<!-- POPUP PERDER NIVEL 1 -->
+<div id="popupPerderNivel1" class="popup-overlay">
+    <div class="popup">
+        <h3><img src="assets/icons/calavera.png" class="emoji-icon" alt="Calavera"> GAME OVER <img src="assets/icons/calavera.png" class="emoji-icon" alt="Calavera"></h3>
+        <p>Pero si querés saber más del mundo de la moda y el streetwear seguinos</p>
+        <div class="qr-code">
+            <img src="assets/qrs/qr_instagram.png" alt="QR Instagram">
+        </div>
+        <button class="close-btn" onclick="volverMenu()">Volver al menú</button>
+    </div>
+</div>
+
+<!-- LOGOS FOOTER -->
+<div class="bottom-logos">
+    <img src="assets/mata.png" class="logo-mata">
+    <img src="assets/yourfriends.png" class="logo-yourfriends">
+</div>
+
+<script src="js/game.js"></script>
+<script>
+// Datos del Nivel 1
+const logos = [
+    {imagen: "assets/1/supreme.png", imagenRespuesta: "assets/1/supreme_respuesta.png", correcta: "Supreme", opciones: ["Stüssy", "Nike", "Carhartt", "Supreme"]},
+    {imagen: "assets/1/offwhite.png", imagenRespuesta: "assets/1/offwhite_respuesta.png", correcta: "Off-White", opciones: ["Off-White", "Adidas", "Yeezy", "Chrome Hearts"]},
+    {imagen: "assets/1/lv.png", imagenRespuesta: "assets/1/lv_respuesta.png", correcta: "Louis Vuitton", opciones: ["Gucci", "Louis Vuitton", "Dior", "Fendi"]},
+    {imagen: "assets/1/palm.png", imagenRespuesta: "assets/1/palm_respuesta.png", correcta: "Palm Angels", opciones: ["Fear of God", "Vans", "Palm Angels", "Kenzo"]},
+    {imagen: "assets/1/sp5der.png", imagenRespuesta: "assets/1/sp5der_respuesta.png", correcta: "Sp5der", opciones: ["Sp5der", "Nike", "Supreme", "Puma"]}
+];
+
+// Instancia del motor de juego para Nivel 1
+let gameEngine;
+
+function iniciarNivel1() {
+    gameEngine = new GameEngine({
+        items: logos,
+        imageElementId: "logoActual",
+        imageRespuestaId: "logoRespuesta",
+        optionsContainerId: "opciones",
+        livesElementIds: ["vida1", "vida2"],
+        popupId: "popupNivel1",
+        onComplete: () => {
+            // Ya se muestra el popup automáticamente
+        },
+        onGameOver: () => {
+            showRewardPopup("popupPerderNivel1");
+        }
+    });
+    
+    gameEngine.init();
+}
+
+function volverMenu() {
+    goToMenu();
+}
+
+function irANivel2() {
+    goToLevel(2);
+}
+
+// Iniciar automáticamente al cargar la página
+window.onload = iniciarNivel1;
+</script>
+
+</body>
+</html>
+

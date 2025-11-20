@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nivel 4</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div id="nivel4" class="nivel">
+
+        <!-- VIDAS -->
+        <div class="vidas-wrapper">
+            <img id="vida1" class="vida" src="assets/icons/corazon_rojo.png">
+            <img id="vida2" class="vida" src="assets/icons/corazon_rojo.png">
+        </div>
+
+        <h2>NIVEL 4</h2>
+
+        <div class="contenedor-logo">
+            <img id="imagenActual" src="" alt="Imagen a adivinar">
+        </div>
+
+        <div id="opciones4" class="opciones"></div>
+
+        <button class="volver" onclick="volverMenu()">Volver al menú</button>
+
+        <img src="assets/logo.png" class="logo-fakmind">
+
+    </div>
+
+    <!-- POPUP FINAL - GANAR NIVEL 4 -->
+    <div id="popupNivel4" class="popup-overlay">
+        <div class="popup">
+            <h3>¡Felicitaciones!</h3>
+            <p>Ganaste el <strong>descuento máximo</strong>!</p>
+            <div class="qr-code">
+                <img src="assets/qrs/qr_descuento.png_maximo.png" alt="QR Descuento Máximo">
+            </div>
+            <button class="close-btn" onclick="volverMenu()">Volver al menú</button>
+        </div>
+    </div>
+
+    <!-- POPUP PERDER NIVEL 4 - RECLAMAR RECOMPENSAS NIVEL 3 -->
+    <div id="popupPerderNivel4" class="popup-overlay">
+        <div class="popup">
+            <h3>Reclama las recompensas del Nivel 3</h3>
+            <button class="reward-button" onclick="showRewardClaimPopup('popupRecompensaNivel3')">Reclamar</button>
+            <button class="close-btn" onclick="volverMenu()" style="margin-top: 10px;">Volver al menú</button>
+        </div>
+    </div>
+
+    <!-- POPUP RECOMPENSA NIVEL 3 -->
+    <div id="popupRecompensaNivel3" class="popup-overlay">
+        <div class="popup">
+            <h3>¡Felicidades!</h3>
+            <p>Ganaste las recompensas del Nivel 3</p>
+            <div class="qr-code">
+                <img src="assets/qrs/qr_descuento.png" alt="QR Descuento">
+            </div>
+            <button class="close-btn" onclick="hideRewardPopup('popupRecompensaNivel3'); hideRewardPopup('popupPerderNivel4'); volverMenu();">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- LOGOS FOOTER -->
+    <div class="bottom-logos">
+        <img src="assets/mata.png" class="logo-mata">
+        <img src="assets/yourfriends.png" class="logo-yourfriends">
+    </div>
+
+    <script src="js/game.js"></script>
+    <script>
+        // Datos del Nivel 4 - REEMPLAZA CON TUS DATOS
+        const itemsNivel4 = [
+            // Ejemplo:
+            // {imagen: "assets/ejemplo1.png", correcta: "Respuesta Correcta", opciones: ["Opción 1", "Opción 2", "Respuesta Correcta", "Opción 4"]},
+            // {imagen: "assets/ejemplo2.png", correcta: "Otra Respuesta", opciones: ["Opción A", "Otra Respuesta", "Opción B", "Opción C"]},
+        ];
+
+        // Instancia del motor de juego para Nivel 4
+        let gameEngine;
+
+        function iniciarNivel4() {
+            gameEngine = new GameEngine({
+                items: itemsNivel4,
+                imageElementId: "imagenActual",
+                optionsContainerId: "opciones4",
+                livesElementIds: ["vida1", "vida2"],
+                popupId: "popupNivel4",
+                onComplete: () => {
+                    // Ya se muestra el popup automáticamente con el mensaje de descuento máximo
+                },
+                onGameOver: () => {
+                    showRewardPopup("popupPerderNivel4");
+                }
+            });
+
+            gameEngine.init();
+        }
+
+        function volverMenu() {
+            goToMenu();
+        }
+
+        // Iniciar automáticamente al cargar la página
+        window.onload = iniciarNivel4;
+    </script>
+
+</body>
+
+</html>

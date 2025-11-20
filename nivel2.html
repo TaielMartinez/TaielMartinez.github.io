@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nivel 2 – Guess The Sneakers</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <div id="nivel2" class="nivel">
+
+        <!-- VIDAS -->
+        <div class="vidas-wrapper">
+            <img id="vida1" class="vida" src="assets/icons/corazon_rojo.png">
+            <img id="vida2" class="vida" src="assets/icons/corazon_rojo.png">
+        </div>
+
+        <h2>NIVEL 2 – GUESS THE SNEAKERS</h2>
+
+        <div class="contenedor-logo">
+            <img id="sneakerActual" src="" alt="Sneaker a adivinar">
+        </div>
+
+        <div id="opciones2" class="opciones"></div>
+
+        <button class="volver" onclick="volverMenu()">Volver al menú</button>
+
+        <img src="assets/logo.png" class="logo-fakmind">
+
+    </div>
+
+    <!-- POPUP FINAL -->
+    <div id="popupNivel2" class="popup-overlay">
+        <div class="popup">
+            <h3>¡Completaste el Nivel 2!</h3>
+            <img src="assets/flecha.png" class="popup-btn" onclick="volverMenu()" />
+        </div>
+    </div>
+
+    <!-- POPUP PERDER NIVEL 2 - RECLAMAR RECOMPENSAS -->
+    <div id="popupPerderNivel2" class="popup-overlay">
+        <div class="popup">
+            <h3>Reclama las recompensas del Nivel 1</h3>
+            <button class="reward-button" onclick="showRewardClaimPopup('popupRecompensaNivel1')">Reclamar</button>
+            <button class="close-btn" onclick="volverMenu()" style="margin-top: 10px;">Volver al menú</button>
+        </div>
+    </div>
+
+    <!-- POPUP RECOMPENSA NIVEL 1 (10% DESCUENTO) -->
+    <div id="popupRecompensaNivel1" class="popup-overlay">
+        <div class="popup">
+            <h3>¡Felicidades!</h3>
+            <p>Ganaste un <strong>10% de descuento</strong></p>
+            <div class="qr-code">
+                <img src="assets/qrs/qr_descuento.png" alt="QR Descuento">
+            </div>
+            <button class="close-btn" onclick="hideRewardPopup('popupRecompensaNivel1'); hideRewardPopup('popupPerderNivel2'); volverMenu();">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- LOGOS FOOTER -->
+    <div class="bottom-logos">
+        <img src="assets/mata.png" class="logo-mata">
+        <img src="assets/yourfriends.png" class="logo-yourfriends">
+    </div>
+
+    <script src="js/game.js"></script>
+    <script>
+        // Datos del Nivel 2
+        const sneakers = [
+            { imagen: "assets/2/snk1.png", correcta: "Out Of Office", opciones: ["LV Skate", "Jordan 4", "Air Force 1", "Out Of Office"] },
+            { imagen: "assets/2/snk2.png", correcta: "Jordan 4", opciones: ["Jordan 11", "Bape Sk8 Sta", "Jordan 4", "Yeezy Slide"] },
+            { imagen: "assets/2/snk3.png", correcta: "Forum Bad Bunny", opciones: ["Forum Bad Bunny", "Campus Bad Bunny", "Gazelle Bad Bunny", "Response Bad Bunny"] },
+            { imagen: "assets/2/snk4.png", correcta: "Yeezy Foam Runner", opciones: ["Yeezy Slide", "Yeezy 350", "Yeezy Foam Runner", "Yeezy 700"] },
+            { imagen: "assets/2/snk5.png", correcta: "Shox TL", opciones: ["Air Max Tn", "Shox TL", "Uptempo", "Vapormax"] }
+        ];
+
+        // Instancia del motor de juego para Nivel 2
+        let gameEngine;
+
+        function iniciarNivel2() {
+            gameEngine = new GameEngine({
+                items: sneakers,
+                imageElementId: "sneakerActual",
+                optionsContainerId: "opciones2",
+                livesElementIds: ["vida1", "vida2"],
+                popupId: "popupNivel2",
+                onComplete: () => {
+                    // Ya se muestra el popup automáticamente
+                },
+                onGameOver: () => {
+                    showRewardPopup("popupPerderNivel2");
+                }
+            });
+
+            gameEngine.init();
+        }
+
+        function volverMenu() {
+            goToMenu();
+        }
+
+        // Iniciar automáticamente al cargar la página
+        window.onload = iniciarNivel2;
+    </script>
+
+</body>
+
+</html>
