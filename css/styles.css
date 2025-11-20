@@ -45,7 +45,8 @@ body {
 
 .levels {
     margin-top: 50px;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     grid-template-columns: repeat(2, auto);
     row-gap: 50px;
     column-gap: 115px;
