@@ -44,14 +44,13 @@
             </div>
 
             <!-- NIVEL 4 -->
-            <!--<div class="level">
+            <div class="level">
                 <div class="level-cover"><img src="assets/portada4.png"></div>
                 <div class="level-button" onclick="window.location.href='nivel4.html'">
                     NIVEL 4
                     <small>(PRÓXIMAMENTE)</small>
                 </div>
             </div>
-            -->
 
         </div>
     </div>
@@ -61,6 +60,13 @@
         <img src="assets/mata.png" class="logo-mata">
         <img src="assets/yourfriends.png" class="logo-yourfriends">
     </div>
+
+    <script>
+        // Reiniciar vidas cuando se vuelve al menú
+        window.onload = function() {
+            localStorage.setItem('gameLives', '2');
+        };
+    </script>
 
 </body>
 

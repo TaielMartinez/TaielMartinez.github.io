@@ -3,8 +3,9 @@
 class GameEngine {
     constructor(config) {
         this.items = config.items; // Array de preguntas (logos, sneakers, etc.)
-        this.imageElementId = config.imageElementId; // ID del elemento img
+        this.imageElementId = config.imageElementId || null; // ID del elemento img
         this.imageRespuestaId = config.imageRespuestaId || null; // ID del elemento img de respuesta
+        this.preguntaElementId = config.preguntaElementId || null; // ID del elemento de pregunta de texto
         this.optionsContainerId = config.optionsContainerId; // ID del contenedor de opciones
         this.livesElementIds = config.livesElementIds; // Array con IDs de los corazones
         this.popupId = config.popupId; // ID del popup
@@ -18,9 +19,11 @@ class GameEngine {
 
     init() {
         this.currentIndex = 0;
-        this.lives = 2;
+        // Cargar vidas desde localStorage, o usar 2 si no existe
+        const savedLives = localStorage.getItem('gameLives');
+        this.lives = savedLives !== null ? parseInt(savedLives, 10) : 2;
         this.isVerifying = false;
-        this.resetLives();
+        this.updateLivesDisplay();
         this.loadQuestion();
     }
 
@@ -33,6 +36,42 @@ class GameEngine {
         });
     }
 
+    updateLivesDisplay() {
+        // Actualizar la visualización de las vidas según el estado actual
+        if (this.lives === 2) {
+            // Ambas vidas
+            this.livesElementIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.src = "assets/icons/corazon_rojo.png";
+                }
+            });
+        } else if (this.lives === 1) {
+            // Solo una vida
+            if (this.livesElementIds[0]) {
+                const vida1 = document.getElementById(this.livesElementIds[0]);
+                if (vida1) vida1.src = "assets/icons/corazon_rojo.png";
+            }
+            if (this.livesElementIds[1]) {
+                const vida2 = document.getElementById(this.livesElementIds[1]);
+                if (vida2) vida2.src = "assets/icons/corazon_negro.png";
+            }
+        } else {
+            // Sin vidas
+            this.livesElementIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.src = "assets/icons/corazon_negro.png";
+                }
+            });
+        }
+    }
+
+    saveLives() {
+        // Guardar vidas en localStorage
+        localStorage.setItem('gameLives', this.lives.toString());
+    }
+
     loadQuestion() {
         if (this.currentIndex >= this.items.length) {
             this.complete();
@@ -40,23 +79,34 @@ class GameEngine {
         }
 
         const item = this.items[this.currentIndex];
-        const imageElement = document.getElementById(this.imageElementId);
         const optionsContainer = document.getElementById(this.optionsContainerId);
 
-        if (imageElement) {
-            // Resetear y cargar imagen deformada
-            imageElement.style.opacity = "1";
-            imageElement.style.transition = "opacity 1s ease-in-out";
-            imageElement.src = item.imagen;
-            
-            // Ocultar imagen de respuesta si existe
-            if (this.imageRespuestaId) {
-                const respuestaElement = document.getElementById(this.imageRespuestaId);
-                if (respuestaElement) {
-                    respuestaElement.style.display = "none";
-                    respuestaElement.style.opacity = "0";
-                    respuestaElement.src = "";
+        // Manejar imágenes si existen
+        if (this.imageElementId) {
+            const imageElement = document.getElementById(this.imageElementId);
+            if (imageElement && item.imagen) {
+                // Resetear y cargar imagen deformada
+                imageElement.style.opacity = "1";
+                imageElement.style.transition = "opacity 1s ease-in-out";
+                imageElement.src = item.imagen;
+                
+                // Ocultar imagen de respuesta si existe
+                if (this.imageRespuestaId) {
+                    const respuestaElement = document.getElementById(this.imageRespuestaId);
+                    if (respuestaElement) {
+                        respuestaElement.style.display = "none";
+                        respuestaElement.style.opacity = "0";
+                        respuestaElement.src = "";
+                    }
                 }
+            }
+        }
+
+        // Manejar preguntas de texto si existen
+        if (this.preguntaElementId) {
+            const preguntaElement = document.getElementById(this.preguntaElementId);
+            if (preguntaElement && item.pregunta) {
+                preguntaElement.textContent = item.pregunta;
             }
         }
 
@@ -90,27 +140,33 @@ class GameEngine {
 
             // Animar crossfade de imagen si existe imagenRespuesta
             const item = this.items[this.currentIndex];
-            const imageElement = document.getElementById(this.imageElementId);
             
-            if (imageElement && item.imagenRespuesta && this.imageRespuestaId) {
-                const respuestaElement = document.getElementById(this.imageRespuestaId);
+            if (this.imageElementId) {
+                const imageElement = document.getElementById(this.imageElementId);
                 
-                if (respuestaElement) {
-                    // Pre-cargar la imagen de respuesta
-                    respuestaElement.src = item.imagenRespuesta;
-                    respuestaElement.style.display = "block";
-                    respuestaElement.style.transition = "opacity 1s ease-in-out";
-                    respuestaElement.style.opacity = "0";
+                if (imageElement && item.imagenRespuesta && this.imageRespuestaId) {
+                    const respuestaElement = document.getElementById(this.imageRespuestaId);
                     
-                    // Pequeño delay para asegurar que la imagen se carga
-                    setTimeout(() => {
-                        // Crossfade: fade out de la deformada y fade in de la respuesta simultáneamente
-                        imageElement.style.transition = "opacity 1s ease-in-out";
-                        imageElement.style.opacity = "0";
-                        respuestaElement.style.opacity = "1";
-                    }, 50);
+                    if (respuestaElement) {
+                        // Pre-cargar la imagen de respuesta
+                        respuestaElement.src = item.imagenRespuesta;
+                        respuestaElement.style.display = "block";
+                        respuestaElement.style.transition = "opacity 1s ease-in-out";
+                        respuestaElement.style.opacity = "0";
+                        
+                        // Pequeño delay para asegurar que la imagen se carga
+                        setTimeout(() => {
+                            // Crossfade: fade out de la deformada y fade in de la respuesta simultáneamente
+                            imageElement.style.transition = "opacity 1s ease-in-out";
+                            imageElement.style.opacity = "0";
+                            respuestaElement.style.opacity = "1";
+                        }, 50);
+                    }
                 }
             }
+
+            // Para preguntas de texto, usar un delay más corto
+            const delay = (this.imageElementId && item.imagenRespuesta) ? 2200 : 1200;
 
             setTimeout(() => {
                 this.currentIndex++;
@@ -121,7 +177,7 @@ class GameEngine {
                 } else {
                     this.loadQuestion();
                 }
-            }, 2200); // 1.2 segundos para completar la animación (1s crossfade + margen)
+            }, delay);
 
         } else {
             // Respuesta incorrecta
@@ -129,6 +185,7 @@ class GameEngine {
             btn.style.color = "white";
 
             this.lives--;
+            this.saveLives(); // Guardar vidas en localStorage
 
             // Actualizar corazones
             if (this.lives === 1 && this.livesElementIds[0]) {
