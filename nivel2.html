@@ -37,7 +37,7 @@
     <div id="popupNivel2" class="popup-overlay">
         <div class="popup">
             <h3>¡Completaste el Nivel 2!</h3>
-            <img src="assets/flecha.png" class="popup-btn" onclick="volverMenu()" />
+            <img src="assets/flecha.png" class="popup-btn" onclick="irANivel3()" />
         </div>
     </div>
 
@@ -103,6 +103,10 @@
 
         function volverMenu() {
             goToMenu();
+        }
+
+        function irANivel3() {
+            goToLevel(3);
         }
 
         // Iniciar automáticamente al cargar la página

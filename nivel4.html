@@ -20,9 +20,12 @@
 
         <h2>NIVEL 4</h2>
 
-        <div class="contenedor-pregunta">
-            <p id="preguntaActual" class="pregunta-texto"></p>
+        <div class="contenedor-logo">
+            <img id="imagenActual" class="img-deformada" src="" alt="Imagen a adivinar">
+            <img id="imagenRespuesta" class="img-respuesta" src="" alt="Imagen respuesta" style="display: none;">
         </div>
+
+        <p id="pregunta4" style="font-size: 20px; font-weight: bold; margin-bottom: 20px;"></p>
 
         <div id="opciones4" class="opciones"></div>
 
@@ -61,7 +64,8 @@
             <div class="qr-code">
                 <img src="assets/qrs/nivel2.png" alt="QR Descuento">
             </div>
-            <button class="close-btn" onclick="hideRewardPopup('popupRecompensaNivel3'); hideRewardPopup('popupPerderNivel4'); volverMenu();">Cerrar</button>
+            <button class="close-btn"
+                onclick="hideRewardPopup('popupRecompensaNivel3'); hideRewardPopup('popupPerderNivel4'); volverMenu();">Cerrar</button>
         </div>
     </div>
 
@@ -73,14 +77,15 @@
 
     <script src="js/game.js"></script>
     <script>
-        // Datos del Nivel 4 - Preguntas de texto
+        // Datos del Nivel 4 - Con imágenes
+        // NOTA: Asegúrate de tener las imágenes 1.PNG (o 1.JPG) y 6.png/6r.png en assets/4/
         const itemsNivel4 = [
-            { pregunta: "¿Cuál de estas marcas colaboró con Supreme?", correcta: "The North Face", opciones: ["Dior", "The North Face", "Balmain", "Diesel"] },
-            { pregunta: "¿Cuál de estas marcas es italiana?", correcta: "Palm Angels", opciones: ["Off-White", "Palm Angels", "Carhartt", "Stüssy"] },
-            { pregunta: "¿Cuál fue el primer modelo de zapatillas colaboración de Yeezy con Adidas?", correcta: "Yeezy 750 Boost", opciones: ["Yeezy 350 V1", "Yeezy 750 Boost", "Yeezy Foam Runner", "Yeezy Slide"] },
-            { pregunta: "¿En qué país nació la marca A Bathing Ape (BAPE)?", correcta: "Japón", opciones: ["Corea del Sur", "Japón", "China", "Estados Unidos"] },
-            { pregunta: "¿Quién fundó Off-White?", correcta: "Virgil Abloh", opciones: ["Virgil Abloh", "Kanye West", "Nigo", "Jerry Lorenzo"] },
-            { pregunta: "¿Quiénes son los dueños de fakmind?", correcta: "Lean y Santi", opciones: ["Lucas y Mateo", "Lean y Santi", "Juli y Fran", "Valen y Pedro"] }
+            { imagen: "assets/4/1.png", imagenRespuesta: "assets/4/1r.png", pregunta: "¿Cuál de estas marcas colaboró con Supreme?", correcta: "The North Face", opciones: ["Dior", "The North Face", "Balmain", "Diesel"] },
+            { imagen: "assets/4/2.png", imagenRespuesta: "assets/4/2r.png", pregunta: "¿Cuál de estas marcas es italiana?", correcta: "Palm Angels", opciones: ["Off-White", "Palm Angels", "Carhartt", "Stüssy"] },
+            { imagen: "assets/4/3.png", imagenRespuesta: "assets/4/3r.png", pregunta: "¿Cuál fue el primer modelo de zapatillas colaboración de Yeezy con Adidas?", correcta: "Yeezy 750 Boost", opciones: ["Yeezy 350 V1", "Yeezy 750 Boost", "Yeezy Foam Runner", "Yeezy Slide"] },
+            { imagen: "assets/4/4.png", imagenRespuesta: "assets/4/4r.png", pregunta: "¿En qué país nació la marca A Bathing Ape (BAPE)?", correcta: "Japón", opciones: ["Corea del Sur", "Japón", "China", "Estados Unidos"] },
+            { imagen: "assets/4/5.png", imagenRespuesta: "assets/4/5r.png", pregunta: "¿Quién fundó Off-White?", correcta: "Virgil Abloh", opciones: ["Virgil Abloh", "Kanye West", "Nigo", "Jerry Lorenzo"] },
+            { imagen: "assets/4/6.png", imagenRespuesta: "assets/4/6r.png", pregunta: "¿Quiénes son los dueños de fakmind?", correcta: "Lean y Santi", opciones: ["Lucas y Mateo", "Lean y Santi", "Juli y Fran", "Valen y Pedro"] }
         ];
 
         // Instancia del motor de juego para Nivel 4
@@ -89,13 +94,13 @@
         function iniciarNivel4() {
             gameEngine = new GameEngine({
                 items: itemsNivel4,
-                preguntaElementId: "preguntaActual",
+                imageElementId: "imagenActual",
+                imageRespuestaId: "imagenRespuesta",
+                preguntaElementId: "pregunta4",
                 optionsContainerId: "opciones4",
                 livesElementIds: ["vida1", "vida2"],
                 popupId: "popupNivel4",
-                onComplete: () => {
-                    // Ya se muestra el popup automáticamente con el mensaje de descuento máximo
-                },
+                onComplete: () => { },
                 onGameOver: () => {
                     showRewardPopup("popupPerderNivel4");
                 }
